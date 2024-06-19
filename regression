@@ -1,0 +1,32 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+df=pd.read_csv('D:\\Jeyashri\\IBM\\Datasets\\head1.csv')
+df.head(10)
+plt.scatter(df.HeadSize,df.BrainWeight,color='red')
+plt.xlabel("HeadSize")
+plt.ylabel("BrainWeight")
+plt.show()
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, accuracy_score
+x = df.drop ('Gender', axis = 1) 
+y = df ['Gender'] 
+x_train, x_test, y_train, y_test = train_test_split (x, y, test_size = 0.33, random_state = 1) 
+logmodel = LogisticRegression ()
+logmodel.fit (x_train, y_train) 
+predict= logmodel.predict (x_test)
+print (confusion_matrix (y_test, predict))
+print (accuracy_score (y_test, predict))
+predict
+from sklearn.metrics import classification_report
+classification_report(y_test,predict)
+from sklearn.metrics import accuracy_score
+accuracy_score(y_test,predict)
+plt.figure(figsize=(12, 6))
+plt.plot(x_test,y,'ro')# regression line
+plt.plot(predict,y_test)   # scatter plot showing actual data
+plt.title('Actual vs Predicted')
+plt.xlabel('X')
+plt.ylabel('y')
+plt.show()
